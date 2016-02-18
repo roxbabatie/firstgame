@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "firstgame",
+    "style": "css",
+    "postcss": true
+  }
+}
