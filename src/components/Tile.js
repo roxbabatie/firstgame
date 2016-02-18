@@ -12,7 +12,9 @@ var Tile = React.createClass({
     var pos = this.props.position;
     var startPos= this.props.startPos;
     var number = this.props.number;
-    var style = {left: pos.x, top: pos.y, backgroundPositionX: -startPos.x, backgroundPositionY: -startPos.y };
+    var tileWidth = this.props.tileWidth;
+    var width =  this.props.width;
+    var style = {left: pos.x, top: pos.y, width: tileWidth, height: tileWidth, backgroundSize: width, backgroundPositionX: -startPos.x, backgroundPositionY: -startPos.y };
 
     return (
       <div className="tile" style={style} onClick={this.onClick}>

@@ -10,7 +10,7 @@ var AppComponent = React.createClass({
   render: function () {
     return (
       <div>
-      <Board size={7} width={700}/>
+      <Board size={3} width={300}/>
 
       </div>);
   }

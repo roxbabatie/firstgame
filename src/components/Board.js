@@ -9,7 +9,7 @@ var Board = React.createClass({
     var width = this.props.width;
     var size = this.props.size;
     var tileWidth = width/size;
-    var empty = width - 100;
+    var empty = width - tileWidth;
     var board = [];
 
     for (var i=0; i< (size*size-1); i++) {
@@ -28,7 +28,8 @@ var Board = React.createClass({
       },
       board: board,
       size: size,
-      width: width
+      width: width,
+      tileWidth: tileWidth
     }
   },
   render: function () {
@@ -41,6 +42,8 @@ var Board = React.createClass({
       position={this.state.board[i].pos}
       startPos={this.state.board[i].startPos}
       onClick={this.onTileClick}
+      tileWidth={this.state.tileWidth}
+      width={this.state.width}
     />
       tiles.push(tile)
     }
@@ -69,8 +72,8 @@ var Board = React.createClass({
   isValidMove: function(startPos, targetPos){
     var diffX = Math.abs(targetPos.x - startPos.x);
     var diffY = Math.abs(targetPos.y - startPos.y);
-    var validX = diffX === 100 && diffY === 0;
-    var validY = diffY === 100 && diffX === 0;
+    var validX = diffX === this.state.tileWidth && diffY === 0;
+    var validY = diffY === this.state.tileWidth && diffX === 0;
 
     if(validX || validY){
       return true;
