@@ -11,12 +11,16 @@ var Board = React.createClass({
     var tileWidth = width/size;
     var empty = width - 100;
     var board = [];
+
     for (var i=0; i< (size*size-1); i++) {
       var x = Math.floor(i%size)*tileWidth;
       var y = Math.floor(i/size)*tileWidth;
       var pos = {x:x, y:y};
-      board.push({number: i+1, pos: pos})
+      var startPos = {x:x, y:y};
+      board.push({pos: pos, startPos: startPos})
     }
+
+
     return {
       emptyPos: {
         x: empty,
@@ -35,6 +39,7 @@ var Board = React.createClass({
       key = {i}
       number={i+1}
       position={this.state.board[i].pos}
+      startPos={this.state.board[i].startPos}
       onClick={this.onTileClick}
     />
       tiles.push(tile)
