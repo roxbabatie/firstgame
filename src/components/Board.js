@@ -6,26 +6,30 @@ import Tile from './Tile';
 
 var Board = React.createClass({
   getInitialState: function() {
+    var width = this.props.width;
+    var size = this.props.size;
+    var tileWidth = width/size;
+    var empty = width - 100;
     var board = [];
-    for (var i=0; i<8; i++) {
-      var x = Math.floor(i%3)*100;
-      var y = Math.floor(i/3)*100;
+    for (var i=0; i< (size*size-1); i++) {
+      var x = Math.floor(i%size)*tileWidth;
+      var y = Math.floor(i/size)*tileWidth;
       var pos = {x:x, y:y};
       board.push({number: i+1, pos: pos})
     }
     return {
       emptyPos: {
-        x: 200,
-        y: 200
+        x: empty,
+        y: empty
       },
       board: board,
-
+      size: size,
+      width: width
     }
   },
-
   render: function () {
     var tiles = [];
-    for (var i=0; i<8; i++) {
+    for (var i=0; i < (this.state.size*this.state.size - 1); i++) {
       var tile = <Tile
       index={i}
       key = {i}
@@ -36,17 +40,17 @@ var Board = React.createClass({
       tiles.push(tile)
     }
 
-
+    var boardStyle = {width: this.state.width, height: this.state.width};
     return (
       <div>
-      <div className="board">
+      <div className="board" style={boardStyle}>
       {tiles}
       </div>
       </div>);
   },
 
   onTileClick: function(index) {
-    var isValidMove = this.isValidMove( this.state.board[index].pos,this.state.emptyPos)
+    var isValidMove = this.isValidMove( this.state.board[index].pos,this.state.emptyPos);
     if(!isValidMove){
       return alert("No good!Go home!")
     }
@@ -55,7 +59,6 @@ var Board = React.createClass({
     this.state.board[index].pos = this.state.emptyPos;
     this.state.emptyPos = obj;
     this.forceUpdate();
-//      alert("it is clicked " + index) ;
   },
 
   isValidMove: function(startPos, targetPos){
