@@ -4,6 +4,7 @@ require('styles/App.css');
 import React from 'react';
 import Tile from './Tile';
 
+
 var Board = React.createClass({
   getInitialState: function() {
     var width = this.props.width;
@@ -20,7 +21,7 @@ var Board = React.createClass({
       board.push({pos: pos, startPos: startPos})
     }
 
-
+    console.log("before: ", board);
     return {
       emptyPos: {
         x: empty,
@@ -46,6 +47,7 @@ var Board = React.createClass({
       width={this.state.width}
     />
       tiles.push(tile)
+
     }
 
     var boardStyle = {width: this.state.width, height: this.state.width};
@@ -53,7 +55,9 @@ var Board = React.createClass({
       <div>
       <div className="board" style={boardStyle}>
       {tiles}
+
       </div>
+        <button onClick={this.shuffle}>Shuffle</button>
       </div>);
   },
 
@@ -80,8 +84,21 @@ var Board = React.createClass({
     }
 
     return false
+  },
+  shuffle: function() {
+    var boardArray = this.state.board;
+    var index = boardArray.length;
+    var obj = {};
+    var randomIndex;
+    while (0 !== index) {
+      randomIndex = Math.floor(Math.random() * index);
+      index = index-1;
+      obj.pos = boardArray[index].pos;
+      boardArray[index].pos = boardArray[randomIndex].pos;
+      boardArray[randomIndex].pos = obj.pos;
+    }
+    this.setState({board:boardArray})
   }
-
 
 });
 
