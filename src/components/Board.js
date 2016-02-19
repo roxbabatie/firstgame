@@ -21,7 +21,6 @@ var Board = React.createClass({
       board.push({pos: pos, startPos: startPos})
     }
 
-    console.log("before: ", board);
     return {
       emptyPos: {
         x: empty,
@@ -71,6 +70,7 @@ var Board = React.createClass({
     this.state.board[index].pos = this.state.emptyPos;
     this.state.emptyPos = obj;
     this.forceUpdate();
+    this.win();
   },
 
   isValidMove: function(startPos, targetPos){
@@ -84,6 +84,7 @@ var Board = React.createClass({
     }
 
     return false
+
   },
   shuffle: function() {
     var boardArray = this.state.board;
@@ -98,6 +99,19 @@ var Board = React.createClass({
       boardArray[randomIndex].pos = obj.pos;
     }
     this.setState({board:boardArray})
+  },
+  win: function() {
+    var board = this.state.board;
+    var index = board.length;
+    for ( var i = 0; i < index; i++) {
+      if ((board[i].pos.x != board[i].startPos.x) || (board[i].pos.y != board[i].startPos.y)) {
+        return false;
+      }
+
+    }
+    alert("you win hahahaha");
+    return true;
+
   }
 
 });
