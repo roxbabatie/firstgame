@@ -69,15 +69,16 @@ var Board = React.createClass({
     obj = this.state.board[index].pos;
     this.state.board[index].pos = this.state.emptyPos;
     this.state.emptyPos = obj;
-    this.forceUpdate();
-    this.win();
+    this.forceUpdate(this.win);
+    //this.win();
   },
 
   isValidMove: function(startPos, targetPos){
-    var diffX = Math.abs(targetPos.x - startPos.x);
-    var diffY = Math.abs(targetPos.y - startPos.y);
-    var validX = diffX === this.state.tileWidth && diffY === 0;
-    var validY = diffY === this.state.tileWidth && diffX === 0;
+    var diffX = Math.round(Math.abs(targetPos.x - startPos.x));
+    var diffY = Math.round(Math.abs(targetPos.y - startPos.y));
+    var tileWidthRounded = Math.round(this.state.tileWidth);
+    var validX = diffX === tileWidthRounded && diffY === 0;
+    var validY = diffY === tileWidthRounded && diffX === 0;
 
     if(validX || validY){
       return true;
@@ -107,7 +108,6 @@ var Board = React.createClass({
       if ((board[i].pos.x != board[i].startPos.x) || (board[i].pos.y != board[i].startPos.y)) {
         return false;
       }
-
     }
     alert("you win hahahaha");
     return true;
